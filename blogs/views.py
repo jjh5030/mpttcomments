@@ -21,8 +21,8 @@ def single_post(request, post_id):
 		form = CommentForm(request.POST)
 		if form.is_valid():
 			# if this is a reply to a comment, not to a post 
-			if form.cleaned_data['parent_id'] != '': 
-				comment.parent = Comment.objects.get(id=request.POST['parent_id']) 
+			if form.cleaned_data['parent'] != '': 
+				comment.parent = Comment.objects.get(id=request.POST['parent']) 
 				comment.post = single_post
 				comment.save()
 			else:
@@ -33,7 +33,7 @@ def single_post(request, post_id):
 		else:
 			print "INVALID FORM"
 	else:
-		pass
+		form = CommentForm()
 
 	# LOAD COMMENTS
 	comments = Comment.objects.filter(post=single_post)

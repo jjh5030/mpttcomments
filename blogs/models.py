@@ -25,6 +25,6 @@ class Comment(MPTTModel):
 	def __unicode__(self):
 		return str(self.comment[:100])
 
-class MPTTMeta: 
-	# comments on one level will be ordered by date of creation 
-	order_insertion_by=['added']
+	class MPTTMeta: 
+		# comments on one level will be ordered by date of creation 
+		order_insertion_by=['added']

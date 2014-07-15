@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
+{% load mptt_tags %} 
 
 {% block content %}
-
 
 	<h3>{{ single_post.title }}</h3>
 	<p>{{ single_post.text }}</p>
 	</br>
-
 
 <h1>COMMENTS:</h1>
 </br>
@@ -14,31 +13,25 @@
 
 <form id="postcomment" method="post" action=""> 
 	{% csrf_token %}
-	<textarea name="comment"></textarea> 
-	<input type="hidden" name="parent_id" value=""> 
-	<input type="submit" value="Add comment"> 
+		{% for hidden in form.hidden_fields %}
+	{{ hidden }}
+	{% endfor %}
+	<textarea class="form-control" rows="3" placeholder="Description" name="comment" value="" required></textarea>
+	<button class="btn btn-sm btn-primary" type="submit" name="Submit">Submit</button>
 </form>
 
 <hr/>
  
-{% load mptt_tags %} 
+
 {% recursetree comments %} 
-	<div id="commentter" class="c" style="margin-left: {{ node.get_level }}0px">  
+<div id="commenters">
+	<div id="{{ node.id }}" class="c" style="margin-left: {{ node.get_level }}em;">  
 		{# comment #} 
-		<b>Comment:</b><br /> 
-		{{ node.comment|linebreaks }}  
-		{# form to reply to this comment #} 
-
-		<form method="post" action=""> 
-			{% csrf_token %}
-			<textarea name="comment" rows=1></textarea> 
-			<input type="hidden" name="parent_id" value="{{ node.id }}"> 
-			<input type="submit" value="Add comment"> 
-		</form>
-
-		{# <p><a href="" class="reply">reply</a></p>  #} 
-
+		<b>Comment:</b> {{ node.added|timesince }}<br/> 
+		<p>{{ node.comment|linebreaks }}</p>  
+		<p><a id="reply-{{ node.id }}" href="" class="reply"><button type="button" class="btn btn-primary btn-xs">reply</button></a></p> 
 	</div> 
+</div>
 	{# recursion! children of a given comment #} 
 	{% if not node.is_leaf_node %} 
 		{{ children }} 
