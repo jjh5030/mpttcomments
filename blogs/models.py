@@ -23,7 +23,7 @@ class Comment(MPTTModel):
 	parent = TreeForeignKey('self', null=True, blank=True, related_name='children')  
 
 	def __unicode__(self):
-		return str(self.post)
+		return str(self.comment[:100])
 
 class MPTTMeta: 
 	# comments on one level will be ordered by date of creation 

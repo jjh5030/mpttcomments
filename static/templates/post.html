@@ -2,17 +2,18 @@
 
 {% block content %}
 
-{% for post in single_post %}
-	<h3>{{ post.title }}</h3>
-	<p>{{ post.text }}</p>
+
+	<h3>{{ single_post.title }}</h3>
+	<p>{{ single_post.text }}</p>
 	</br>
-{% endfor %}
+
 
 <h1>COMMENTS:</h1>
 </br>
 </br>
 
-<form id="postcomment" method="post" action="/post/{{ post_id }}"> 
+<form id="postcomment" method="post" action=""> 
+	{% csrf_token %}
 	<textarea name="comment"></textarea> 
 	<input type="hidden" name="parent_id" value=""> 
 	<input type="submit" value="Add comment"> 
@@ -22,13 +23,20 @@
  
 {% load mptt_tags %} 
 {% recursetree comments %} 
-	<div id="{{ node.id}}" class="c" style="margin-left: {{ node.get_level }}0px">  
+	<div id="commentter" class="c" style="margin-left: {{ node.get_level }}0px">  
 		{# comment #} 
 		<b>Comment:</b><br /> 
 		{{ node.comment|linebreaks }}  
 		{# form to reply to this comment #} 
 
-		<p><a href="" class="reply">reply</a></p>  
+		<form method="post" action=""> 
+			{% csrf_token %}
+			<textarea name="comment" rows=1></textarea> 
+			<input type="hidden" name="parent_id" value="{{ node.id }}"> 
+			<input type="submit" value="Add comment"> 
+		</form>
+
+		{# <p><a href="" class="reply">reply</a></p>  #} 
 
 	</div> 
 	{# recursion! children of a given comment #} 

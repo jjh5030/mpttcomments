@@ -19,7 +19,7 @@
 
     <script>
         $(document).ready(function(){
-            $("#comment").on("click", ".reply", function(event){
+            $("#commentter").on("click", ".reply", function(event){
                 event.preventDefault();
                 var form = $("#postcomment").clone(true);
                 form.find('.parent').val($(this).parent().parent().attr('id'));
@@ -29,12 +29,10 @@
     </script>
        <style>
         .c {
-            font-size: 14px;
-            background: #0E0E0E;
+            background-color:rgba(0,0,0,0.1);
             -webkit-border-radius: 10px;
             -moz-border-radius: 10px;
             border-radius: 10px;
-            color: #FFFFFF;
             padding: 10px;
             margin-bottom: 10px;
         }
@@ -65,7 +63,7 @@
 
       <div class="row">
 
-        <div class="col-sm-8 blog-main">
+        <div class="col-sm-12 blog-main">
 
           <div class="blog-post">
               {% block content %}
