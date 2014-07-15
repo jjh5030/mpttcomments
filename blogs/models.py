@@ -10,6 +10,9 @@ class Post(models.Model):
 	text = models.TextField() 
 	added = models.DateTimeField(default=datetime.datetime.now)
 
+	def __unicode__(self):
+		return str(self.title)
+
 class Comment(MPTTModel): 
 	""" Threaded comments for blog posts """ 
 	post = models.ForeignKey(Post) 
@@ -18,6 +21,9 @@ class Comment(MPTTModel):
 	added = models.DateTimeField(default=datetime.datetime.now) 
 	# a link to comment that is being replied, if one exists 
 	parent = TreeForeignKey('self', null=True, blank=True, related_name='children')  
+
+	def __unicode__(self):
+		return str(self.post)
 
 class MPTTMeta: 
 	# comments on one level will be ordered by date of creation 

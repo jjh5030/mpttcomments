@@ -10,4 +10,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 	url(r'^$', 'blogs.views.home', name='home'),
+	url(r'^post/(?P<post_id>\w+)/$', 'blogs.views.single_post', name="single_post"),
 )

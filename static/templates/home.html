@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html>
-<body>
+{% extends 'base.html' %}
 
-<h1>Blog</h1>
+{% block content %}
 
 {% for post in last_posts %}
-	<h3>{{ post.title }}</h3>
+	<h3>POST: {{ post.title }}</h3><a href="post/{{ post.id }}">[LINK]</a>
 	<p>{{ post.text }}</p>
 	</br>
 {% endfor %}
 
-</body>
-</html>
+{% endblock content %}

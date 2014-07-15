@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for post in single_post %}
+	<h3>{{ post.title }}</h3>
+	<p>{{ post.text }}</p>
+	</br>
+{% endfor %}
+
+<h1>COMMENTS:</h1>
+</br>
+</br>
+
+<form id="postcomment" method="post" action="/post/{{ post_id }}"> 
+	<textarea name="comment"></textarea> 
+	<input type="hidden" name="parent_id" value=""> 
+	<input type="submit" value="Add comment"> 
+</form>
+
+<hr/>
+ 
+{% load mptt_tags %} 
+{% recursetree comments %} 
+	<div id="{{ node.id}}" class="c" style="margin-left: {{ node.get_level }}0px">  
+		{# comment #} 
+		<b>Comment:</b><br /> 
+		{{ node.comment|linebreaks }}  
+		{# form to reply to this comment #} 
+
+		<p><a href="" class="reply">reply</a></p>  
+
+	</div> 
+	{# recursion! children of a given comment #} 
+	{% if not node.is_leaf_node %} 
+		{{ children }} 
+	{% endif %} 
+{% endrecursetree %}
+
+{% endblock content %}
