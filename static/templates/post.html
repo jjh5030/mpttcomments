@@ -2,14 +2,16 @@
 {% load mptt_tags %} 
 
 {% block content %}
-
+	
+	</br>
+	</br>
 	<h3>{{ single_post.title }}</h3>
 	<p>{{ single_post.text }}</p>
 	</br>
 
+<hr/>
+
 <h1>COMMENTS:</h1>
-</br>
-</br>
 
 <form id="postcomment" method="post" action=""> 
 	{% csrf_token %}
@@ -21,21 +23,21 @@
 </form>
 
 <hr/>
- 
 
-{% recursetree comments %} 
 <div id="commenters">
-	<div id="{{ node.id }}" class="c" style="margin-left: {{ node.get_level }}em;">  
-		{# comment #} 
-		<b>Comment:</b> {{ node.added|timesince }}<br/> 
-		<p>{{ node.comment|linebreaks }}</p>  
-		<p><a id="reply-{{ node.id }}" href="" class="reply"><button type="button" class="btn btn-primary btn-xs">reply</button></a></p> 
-	</div> 
-</div>
-	{# recursion! children of a given comment #} 
-	{% if not node.is_leaf_node %} 
-		{{ children }} 
-	{% endif %} 
-{% endrecursetree %}
+	{% recursetree comments %} 
 
+		<div id="{{ node.id }}" class="c" style="margin-left: {{ node.get_level }}em;">  
+			{# comment #} 
+			<b>Comment:</b> {{ node.added|timesince }}<br/> 
+			<p>{{ node.comment|linebreaks }}</p>  
+			<p><a id="reply-{{ node.id }}" href="" class="reply"><button type="button" class="btn btn-primary btn-xs">reply</button></a></p> 
+		</div> 
+
+		{# recursion! children of a given comment #} 
+		{% if not node.is_leaf_node %} 
+			{{ children }} 
+		{% endif %} 
+	{% endrecursetree %}
+</div>
 {% endblock content %}

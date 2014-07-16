@@ -17,17 +17,6 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
 
-       <style>
-        .c {
-            background-color:rgba(0,0,0,0.1);
-            -webkit-border-radius: 10px;
-            -moz-border-radius: 10px;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-    </style>
-
   </head>
 
   <body>
@@ -36,29 +25,22 @@
       <div class="container">
         <nav class="blog-nav">
           <a class="blog-nav-item active" href="/">Home</a>
-          <a class="blog-nav-item" href="#">New features</a>
-          <a class="blog-nav-item" href="#">Press</a>
-          <a class="blog-nav-item" href="#">New hires</a>
-          <a class="blog-nav-item" href="#">About</a>
+          <a class="blog-nav-item" href="/">New features</a>
+          <a class="blog-nav-item" href="/">Press</a>
+          <a class="blog-nav-item" href="/">New hires</a>
+          <a class="blog-nav-item" href="/">About</a>
         </nav>
       </div>
     </div>
 
     <div class="container">
 
-      <div class="blog-header">
-        <h1 class="blog-title">The Bootstrap Blog</h1>
-        <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
-      </div>
+      {% block jumbotron %}{% endblock %}
 
       <div class="row">
-
         <div class="col-sm-12 blog-main">
-
           <div class="blog-post">
-              {% block content %}
-
-              {% endblock %}
+              {% block content %}{% endblock %}
           </div><!-- /.blog-post -->
 
         </div><!-- /.blog-main -->
